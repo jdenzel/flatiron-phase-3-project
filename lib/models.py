@@ -1,6 +1,6 @@
-from sqlalchemy import Column, String, Integer, create_engine, ForeignKey
+from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+
 
 Base = declarative_base()
 
@@ -26,6 +26,10 @@ class Order(Base):
 
     def __repr__(self):
         return f"({self.id}, {self.item_id}, {self.quantity}, {self.total_price})"
+    
+
+
+
     
 
 
