@@ -8,6 +8,9 @@ if __name__ == '__main__':
     Session = sessionmaker(bind=engine)
     session = Session()
 
+    session.query(Item).delete()
+    session.commit()
+
     def menu_items():
         menu_items_list = [
             {"name": "Spring Rolls", "category": "Appetizer", "ingredients": "Rice paper, shrimp, lettuce, cucumber, vermicelli, mint leaves", "spice_level": 3, "price": 5.95},
@@ -33,28 +36,31 @@ if __name__ == '__main__':
         
     menu_items()
 
+    print("Welcome to Slice and Dice Thai Food!")
+    print("What would you like to do?")
+    print("1. Place an order")
+    print("3. Sign up for our rewards program")
+    print("4. Write a review")
+    print("5. Quit")    
+
     while True:
-        print("Welcome to Slice and Dice Thai Food!")
-        print("What would you like to do?")
-        print("1. Place an order")
-        print("3. Sign up for our rewards program")
-        print("4. Write a review")
-        print("5. Quit")
 
         try:
-            choice = int(input("Enter your choice: "))
+            choice = int(input("Please choose from one of the following choices: "))
             if choice == 1:
-                break
-            if choice == 2:
-                break
-            if choice == 3:
-                break
-            if choice == 4:
-                break
-            if choice == 5:
-                break
+                pass
+            elif choice == 2:
+                pass
+            elif choice == 3:
+                pass
+            elif choice == 4:
+                pass
+            elif choice == 5:
+                pass
         except ValueError:
             print("Not a valid choice. Enter again.")
+
+        
 
     
         
