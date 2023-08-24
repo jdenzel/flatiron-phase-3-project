@@ -34,25 +34,55 @@ if __name__ == '__main__':
             session.add(new_item)
             session.commit()
         
-    menu_items()
-
-    print("Welcome to Slice and Dice Thai Food!")
-    print("What would you like to do?")
-    print("1. Place an order")
-    print("3. Sign up for our rewards program")
-    print("4. Write a review")
-    print("5. Quit")    
+    menu_items()   
 
     while True:
         def show_menu(items):
             for item in items:
                 print(f"{item.id}: {item.name} - {item.price}")
+        
+        def place_order(items):
+            show_menu(items)
+
+            order_items = []
+            order_item_names = []
+            order_price = 0
+
+            while True:
+                order_input = input("Enter the item number: . Enter 0 to finish your order: ")
+                if order_input == "0":
+                    break
+
+                try:
+                    item_number = int(order_input)
+                    item = session.query(Item).filter_by(id=item_number).first()
+                    if item:
+                        order_items.append(item)
+                        print(f"{item} has been added to your order.")
+                except ValueError:
+                    print("Not a valid item number. Enter again or enter 0.")
+
+            for item in order_items:
+                order_price += item.price
+                order_item_names.append(item.name)
+
+            print("Your ordered:")
+            print(order_item_names)
+            print("Your total price is:")
+            print(order_price)
 
         try:
+            print("Welcome to Slice and Dice Thai Food!")
+            print("What would you like to do?")
+            print("1. Place an order")
+            print("3. Sign up for our rewards program")
+            print("4. Write a review")
+            print("5. Quit") 
             choice = int(input("Please choose from one of the following choices: "))
+            
             if choice == 1:
                 items = session.query(Item).all()
-                show_menu(items)
+                place_order(items)
                 pass
             elif choice == 2:
                 pass
@@ -62,6 +92,8 @@ if __name__ == '__main__':
                 pass
             elif choice == 5:
                 pass
+            else:
+                print("Not a valid choice. Enter again.")
         except ValueError:
             print("Not a valid choice. Enter again.")
 

@@ -20,8 +20,7 @@ class Order(Base):
     __tablename__ = "orders"
 
     id = Column(Integer(), primary_key=True)
-    item_id = Column(Integer(), ForeignKey("items.id"))
-    quantity = Column(Integer())
+    items_ordered = Column(String(), ForeignKey("items.id"))
     total_price = Float(Integer())
 
     def __repr__(self):
