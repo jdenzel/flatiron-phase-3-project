@@ -44,10 +44,15 @@ if __name__ == '__main__':
     print("5. Quit")    
 
     while True:
+        def show_menu(items):
+            for item in items:
+                print(f"{item.id}: {item.name} - {item.price}")
 
         try:
             choice = int(input("Please choose from one of the following choices: "))
             if choice == 1:
+                items = session.query(Item).all()
+                show_menu(items)
                 pass
             elif choice == 2:
                 pass
