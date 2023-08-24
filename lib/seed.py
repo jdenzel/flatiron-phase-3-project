@@ -71,6 +71,8 @@ if __name__ == '__main__':
             print("Your total price is:")
             print(order_price)
 
+            new_order = Order(items_ordered=order_item_names, total_price=order_price)
+
         try:
             print("Welcome to Slice and Dice Thai Food!")
             print("What would you like to do?")
@@ -91,7 +93,8 @@ if __name__ == '__main__':
             elif choice == 4:
                 pass
             elif choice == 5:
-                pass
+                print("Thank you for stopping by Slice and Dice Thai Food!")
+                break
             else:
                 print("Not a valid choice. Enter again.")
         except ValueError:
