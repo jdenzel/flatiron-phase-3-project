@@ -32,3 +32,32 @@ if __name__ == '__main__':
             session.commit()
         
     menu_items()
+
+    while True:
+        print("Welcome to Slice and Dice Thai Food!")
+        print("What would you like to do?")
+        print("1. Place an order")
+        print("3. Sign up for our rewards program")
+        print("4. Write a review")
+        print("5. Quit")
+
+        try:
+            choice = int(input("Enter your choice: "))
+            if choice == 1:
+                break
+            if choice == 2:
+                break
+            if choice == 3:
+                break
+            if choice == 4:
+                break
+            if choice == 5:
+                break
+        except ValueError:
+            print("Not a valid choice. Enter again.")
+
+    
+        
+
+            
+
