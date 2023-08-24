@@ -26,6 +26,19 @@ class Order(Base):
 
     def __repr__(self):
         return f"({self.id}, {self.item_id}, {self.quantity}, {self.total_price})"
+
+class Customer(Base):
+    __tablename__ = "customers"
+
+    id = Column(Integer(), primary_key=True)
+    name = Column(String())
+    order_id = Column(Integer(), ForeignKey("orders.id"))
+
+    def __repr__(self):
+        return f"({self.id}, {self.name}, {self.order_id})"
+
+
+    
     
 
 
