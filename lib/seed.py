@@ -103,7 +103,15 @@ if __name__ == '__main__':
             session.add(new_review)
             session.commit()
         
-        # def view_history():
+        def view_history():
+            if customer.history:
+                print("Order history:")
+                for orders in customer.history:
+                    print(f"Order ID: {orders.id}")
+                    print(f"Items ordered: {orders.order_items}")
+                    print(f"Order total:  {orders.total}")
+                else:
+                    print("It seems like you haven't ordered from us yet")
             
 
         try:
@@ -121,9 +129,8 @@ if __name__ == '__main__':
                 place_order(items)
             elif choice == 2:
                 write_review()
-                pass
             elif choice == 3:
-                pass
+                view_history()
             elif choice == 4:
                 print("Thank you for stopping by Slice and Dice Thai Food!")
                 break
