@@ -36,7 +36,6 @@ if __name__ == '__main__':
             
     menu_items()
 
-
     print("Welcome to Slice and Dice Thai Food!")
     customer_name = input("Please enter your name: ")
     customer_phone_number = input("Please enter your phone number: ")
@@ -104,6 +103,9 @@ if __name__ == '__main__':
             session.add(new_review)
             session.commit()
         
+        def view_history():
+            
+
         try:
             print("Menu")
             print("-" * 30)
