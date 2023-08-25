@@ -49,6 +49,12 @@ if __name__ == '__main__':
             order_price = 0
 
             while True:
+                # recurring_customer = session.query(Customer).filter_by(name=customer_name).first()
+                # customer_name = input("Enter your name: ")
+                # if customer_name in recurring_customer:
+                #     print("Welcome back!")
+                    
+
                 order_input = input("Enter the item number: . Enter 0 to finish your order: ")
                 if order_input == "0":
                     break
@@ -72,13 +78,23 @@ if __name__ == '__main__':
             print(order_price)
 
             new_order = Order(items_ordered=order_item_names, total_price=order_price)
+            session.add(new_order)
+            session.commit()
+        
+        def sign_up_for_rewards():
+            print("Slice and Dice Rewards")
+            print("----------------------")
+            print("For every $50 you spend get an extra Spring Roll! Sign up today!")
+
+            pass
 
         try:
             print("Welcome to Slice and Dice Thai Food!")
             print("What would you like to do?")
             print("1. Place an order")
-            print("3. Sign up for our rewards program")
-            print("4. Write a review")
+            print("2. Sign up for our rewards program")
+            print("3. Write a review")
+            print("4. View order history")
             print("5. Quit") 
             choice = int(input("Please choose from one of the following choices: "))
             

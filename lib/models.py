@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
@@ -35,6 +36,13 @@ class Customer(Base):
 
     def __repr__(self):
         return f"({self.id}, {self.name}, {self.order_id})"
+    
+class Restaurant(Base):
+    __tablename__ = "restaurants"
+
+    id = Column(Integer(), primary_key=True)
+    name = Column(String())
+    customers = Column(Integer(),  ForeignKey("customers.id"), unique=True)
 
 
     
