@@ -36,19 +36,27 @@ if __name__ == '__main__':
             
     menu_items()
 
-    
+
+    print("Welcome to Slice and Dice Thai Food!")
+    customer_name = input("Please enter your name: ")
+    customer_phone_number = input("Please enter your phone number: ")
+    existing_customer = session.query(Customer).filter_by(name=customer_name, phone_number=customer_phone_number).first()
+
+    if existing_customer:
+        print(f"Welcome back {existing_customer.name}!")
+        customer = existing_customer
+    else:
+        print("It looks like you are a new customer. Welcome!")
+        customer = Customer(name=customer_name, phone_number=customer_phone_number)
+        session.add(customer)
+        session.commit()
+
     while True:
         def show_menu(items):
             for item in items:
                 print(f"{item.id}: {item.name} - {item.price}")
         
         def place_order(items):
-            customer_name = input("Enter the name for your order: ")
-            customer_phone_number = input("Enter your phone number: ")
-            customer = Customer(name=customer_name, phone_number=customer_phone_number)
-            session.add(customer)
-            session.commit()
-
             show_menu(items)
 
             order_items = []
@@ -78,41 +86,27 @@ if __name__ == '__main__':
             print("Your total price is:")
             print(order_price)
 
-            order_item_names = ", ".join(item.name for item in order_items)
+            order_item_names = ", ".join(item.name for item in order_items) 
 
             new_order = Order(items=order_item_names, total_price=order_price, customer_id=customer.id)
             session.add(new_order)
             session.commit()
-        
-
-            pass
 
         def write_review():
             print("Give us a Review!")
-            customer_name = input("Enter your name: ")
-            customer_phone_number = input("Enter your phone number: ")
-            existing_customer = session.query(Customer).filter_by(name=customer_name, phone_number=customer_phone_number).first()
-
-            if existing_customer:
-                customer = existing_customer
-            else:
-                print("It looks like you are a new customer. Welcome!")
-                customer = Customer(name=customer_name, phone_number=customer_phone_number)
-                session.add(customer)
-                session.commit()
 
             rating = int(input("Rate our restaurant from 1 to 5:"))
             comment = input("Tell us what you thought:")
 
-            print("Thank you for your review!")
+            print(f"Thank you for your review {customer_name}!")
 
             new_review = Review(rating=rating, comment=comment, customer_id=customer.id)
             session.add(new_review)
             session.commit()
-            pass
         
         try:
-            print("Welcome to Slice and Dice Thai Food!")
+            print("Menu")
+            print("-" * 30)
             print("What would you like to do?")
             print("1. Place an order")
             print("2. Write a review")
@@ -131,8 +125,6 @@ if __name__ == '__main__':
             elif choice == 4:
                 print("Thank you for stopping by Slice and Dice Thai Food!")
                 break
-            else:
-                print("Not a valid choice. Enter again.")
         except ValueError:
             print("Not a valid choice. Enter again.")
 

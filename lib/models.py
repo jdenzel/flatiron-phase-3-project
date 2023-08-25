@@ -23,10 +23,10 @@ class Customer(Base):
     id = Column(Integer(), primary_key=True)
     name = Column(String())
     phone_number = Column(String())
-    orders = relationship("Order", backref="customers")
+    order = relationship("Order", backref="customers")
 
     def __repr__(self):
-        return f"({self.id}, {self.name}, {self.phone_number} {self.orders})"
+        return f"({self.id}, {self.name}, {self.phone_number} {self.order})"
 
 class Order(Base):
     __tablename__ = "orders"
@@ -37,7 +37,7 @@ class Order(Base):
     customer_id = Column(Integer(), ForeignKey("customers.id"))
 
     def __repr__(self):
-        return f"({self.id}, {self.item},  {self.total_price}, {self.customer_id})"
+        return f"({self.id}, {self.items}, {self.total_price}, {self.customer_id})"
     
 class Review(Base):
     __tablename__ = "reviews"
@@ -49,7 +49,6 @@ class Review(Base):
 
     def __repr__(self):
         return f"{self.id}, {self.rating}, {self.comment}, {self.customer_id}"
-    
 
 
     
