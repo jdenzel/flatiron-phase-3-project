@@ -1,9 +1,9 @@
-from models import Item, Order, Base
+from models import Item, Order, Customer, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 if __name__ == '__main__':
-    engine = create_engine('sqlite:///database.db', echo=True)
+    engine = create_engine('sqlite:///database.db')
     Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -33,6 +33,7 @@ if __name__ == '__main__':
             new_item = Item(name=item["name"], category=item["category"], ingredients=item["ingredients"], spice_level=item["spice_level"], price=item["price"])
             session.add(new_item)
             session.commit()
+            
         
     menu_items()   
 
@@ -42,19 +43,19 @@ if __name__ == '__main__':
                 print(f"{item.id}: {item.name} - {item.price}")
         
         def place_order(items):
+            customer_name = input("Enter the name for your order: ")
+            customer_phone_number = input("Enter your phone number: ")
+            customer = Customer(name=customer_name, phone_number=customer_phone_number)
+            session.add(customer)
+            session.commit()
+
             show_menu(items)
 
             order_items = []
-            order_item_names = []
             order_price = 0
 
             while True:
-                # recurring_customer = session.query(Customer).filter_by(name=customer_name).first()
-                # customer_name = input("Enter your name: ")
-                # if customer_name in recurring_customer:
-                #     print("Welcome back!")
-                    
-
+                
                 order_input = input("Enter the item number: . Enter 0 to finish your order: ")
                 if order_input == "0":
                     break
@@ -70,14 +71,16 @@ if __name__ == '__main__':
 
             for item in order_items:
                 order_price += item.price
-                order_item_names.append(item.name)
 
             print("Your ordered:")
-            print(order_item_names)
+            for item in order_items:
+                print(item.name)
             print("Your total price is:")
             print(order_price)
 
-            new_order = Order(items_ordered=order_item_names, total_price=order_price)
+            order_item_names = ", ".join(item.name for item in order_items)
+
+            new_order = Order(items=order_item_names, total_price=order_price, customer_id=customer.id)
             session.add(new_order)
             session.commit()
         

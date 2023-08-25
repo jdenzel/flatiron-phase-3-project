@@ -16,33 +16,29 @@ class Item(Base):
 
     def __repr__(self):
         return f"({self.id}, {self.name}, {self.category}, {self.ingredients}, {self.price})"
-
-class Order(Base):
-    __tablename__ = "orders"
-
-    id = Column(Integer(), primary_key=True)
-    items_ordered = Column(String(), ForeignKey("items.id"))
-    total_price = Float(Integer())
-
-    def __repr__(self):
-        return f"({self.id}, {self.item_id}, {self.quantity}, {self.total_price})"
-
+    
 class Customer(Base):
     __tablename__ = "customers"
 
     id = Column(Integer(), primary_key=True)
     name = Column(String())
-    order_id = Column(Integer(), ForeignKey("orders.id"))
+    phone_number = Column(String())
+    orders = relationship("Order", backref="customers")
 
     def __repr__(self):
-        return f"({self.id}, {self.name}, {self.order_id})"
-    
-class Restaurant(Base):
-    __tablename__ = "restaurants"
+        return f"({self.id}, {self.name}, {self.phone_number} {self.orders})"
+
+class Order(Base):
+    __tablename__ = "orders"
 
     id = Column(Integer(), primary_key=True)
-    name = Column(String())
-    customers = Column(Integer(),  ForeignKey("customers.id"), unique=True)
+    items = Column(String())
+    total_price = Column(Float())
+    customer_id = Column(Integer(), ForeignKey("customers.id"))
+
+    def __repr__(self):
+        return f"({self.id}, {self.item},  {self.total_price}, {self.customer_id})"
+    
 
 
     
