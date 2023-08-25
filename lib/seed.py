@@ -37,6 +37,8 @@ if __name__ == '__main__':
         
     menu_items()   
 
+    
+
     while True:
         def show_menu(items):
             for item in items:
@@ -84,10 +86,6 @@ if __name__ == '__main__':
             session.add(new_order)
             session.commit()
         
-        def sign_up_for_rewards():
-            print("Slice and Dice Rewards")
-            print("----------------------")
-            print("For every $50 you spend get an extra Spring Roll! Sign up today!")
 
             pass
 
@@ -95,10 +93,9 @@ if __name__ == '__main__':
             print("Welcome to Slice and Dice Thai Food!")
             print("What would you like to do?")
             print("1. Place an order")
-            print("2. Sign up for our rewards program")
-            print("3. Write a review")
-            print("4. View order history")
-            print("5. Quit") 
+            print("2. Write a review")
+            print("3. View order history")
+            print("4. Quit") 
             choice = int(input("Please choose from one of the following choices: "))
             
             if choice == 1:
@@ -110,8 +107,6 @@ if __name__ == '__main__':
             elif choice == 3:
                 pass
             elif choice == 4:
-                pass
-            elif choice == 5:
                 print("Thank you for stopping by Slice and Dice Thai Food!")
                 break
             else:
