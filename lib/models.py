@@ -24,6 +24,7 @@ class Customer(Base):
     name = Column(String())
     phone_number = Column(String())
     order = relationship("Order", backref="customers")
+    history = relationship("History", backref="customers")
 
     def __repr__(self):
         return f"({self.id}, {self.name}, {self.phone_number} {self.order})"
