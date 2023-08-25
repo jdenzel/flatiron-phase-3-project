@@ -91,7 +91,15 @@ if __name__ == '__main__':
             print("Give us a Review!")
             customer_name = input("Enter your name: ")
             customer_phone_number = input("Enter your phone number: ")
-            customer = Customer(name=customer_name, phone_number=customer_phone_number)
+            existing_customer = session.query(Customer).filter_by(name=customer_name, phone_number=customer_phone_number).first()
+
+            if existing_customer:
+                customer = existing_customer
+            else:
+                print("It looks like you are a new customer. Welcome!")
+                customer = Customer(name=customer_name, phone_number=customer_phone_number)
+                session.add(customer)
+                session.commit()
 
             rating = int(input("Rate our restaurant from 1 to 5:"))
             comment = input("Tell us what you thought:")
