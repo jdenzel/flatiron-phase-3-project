@@ -103,7 +103,7 @@ if __name__ == '__main__':
             session.add(new_review)
             session.commit()
         
-        def view_history():
+        # def view_history():
             
 
         try:
