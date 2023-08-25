@@ -1,4 +1,4 @@
-from models import Item, Order, Customer, Review, Base
+from models import Item, Order, Customer, Review, History, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -89,6 +89,10 @@ if __name__ == '__main__':
 
             new_order = Order(items=order_item_names, total_price=order_price, customer_id=customer.id)
             session.add(new_order)
+            session.commit()
+
+            new_history = History(order_items=order_item_names, total=order_price, customer_id=customer.id)
+            session.add(new_history)
             session.commit()
 
         def write_review():
