@@ -1,4 +1,4 @@
-from models import Item, Order, Customer, Base
+from models import Item, Order, Customer, Review, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -34,11 +34,9 @@ if __name__ == '__main__':
             session.add(new_item)
             session.commit()
             
-        
-    menu_items()   
+    menu_items()
 
     
-
     while True:
         def show_menu(items):
             for item in items:
@@ -90,13 +88,19 @@ if __name__ == '__main__':
             pass
 
         def write_review():
+            print("Give us a Review!")
             customer_name = input("Enter your name: ")
             customer_phone_number = input("Enter your phone number: ")
             customer = Customer(name=customer_name, phone_number=customer_phone_number)
-            session.add(customer)
+
+            rating = int(input("Rate our restaurant from 1 to 5:"))
+            comment = input("Tell us what you thought:")
+
+            print("Thank you for your review!")
+
+            new_review = Review(rating=rating, comment=comment, customer_id=customer.id)
+            session.add(new_review)
             session.commit()
-
-
             pass
         
         try:
@@ -112,6 +116,7 @@ if __name__ == '__main__':
                 items = session.query(Item).all()
                 place_order(items)
             elif choice == 2:
+                write_review()
                 pass
             elif choice == 3:
                 pass
