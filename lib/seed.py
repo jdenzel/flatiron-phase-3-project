@@ -89,6 +89,16 @@ if __name__ == '__main__':
 
             pass
 
+        def write_review():
+            customer_name = input("Enter your name: ")
+            customer_phone_number = input("Enter your phone number: ")
+            customer = Customer(name=customer_name, phone_number=customer_phone_number)
+            session.add(customer)
+            session.commit()
+
+
+            pass
+        
         try:
             print("Welcome to Slice and Dice Thai Food!")
             print("What would you like to do?")
@@ -101,7 +111,6 @@ if __name__ == '__main__':
             if choice == 1:
                 items = session.query(Item).all()
                 place_order(items)
-                pass
             elif choice == 2:
                 pass
             elif choice == 3:

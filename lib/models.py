@@ -39,6 +39,17 @@ class Order(Base):
     def __repr__(self):
         return f"({self.id}, {self.item},  {self.total_price}, {self.customer_id})"
     
+class Review(Base):
+    __tablename__ = "reviews"
+
+    id = Column(Integer(), primary_key=True)
+    rating = Column(Integer())
+    comment = Column(String())
+    customer_id = Column(Integer(), ForeignKey("customers.id"))
+
+    def __repr__(self):
+        return f"{self.id}, {self.rating}, {self.comment}, {self.customer_id}"
+    
 
 
     
