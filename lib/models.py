@@ -23,7 +23,8 @@ class Customer(Base):
     id = Column(Integer(), primary_key=True)
     name = Column(String())
     phone_number = Column(String())
-    order = relationship("Order", backref="customers")
+    #One-to-many relationship with order, reviews, and history tables
+    order = relationship("Order", backref="customers") 
     reviews = relationship("Review", backref="customers")
     history = relationship("History", backref="customers")
 
@@ -40,14 +41,6 @@ class Order(Base):
 
     def __repr__(self):
         return f"({self.id}, {self.items}, {self.total_price}, {self.customer_id})"
-    
-# class RestaurantR:
-#     __tablename__ = "restaurant_revies"
-#     id = Column(Integer(), primary_key=True)
-#     restaurant_review = relationship("Review", backref="RestaurantR")
-
-#     def __repr__(self):
-#         return f"({self.id})"
 
 class Review(Base):
     __tablename__ = "reviews"
@@ -56,7 +49,6 @@ class Review(Base):
     rating = Column(Integer())
     comment = Column(String())
     customer_id = Column(Integer(), ForeignKey("customers.id"))
-    # restaurant_review = Column()
 
     def __repr__(self):
         return f"{self.id}, {self.rating}, {self.comment}, {self.customer_id}"

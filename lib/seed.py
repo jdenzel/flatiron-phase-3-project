@@ -11,7 +11,8 @@ if __name__ == '__main__':
     session.query(Item).delete()
     session.commit()
 
-    def menu_items():
+    def menu_items(): 
+        #dictionary
         menu_items_list = [
             {"name": "Spring Rolls", "category": "Appetizer", "description": "Crispy spring rolls served with sweet chili sauce", "spice_level": 3, "price": 5.95},
             {"name": "Chicken Satay", "category": "Appetizer", "description": "Grilled chicken breast in a satay sauce served with our own special peanut sauce. Served with a cucumber relish", "spice_level": 2, "price": 8.95},
@@ -36,19 +37,23 @@ if __name__ == '__main__':
             
     menu_items()
 
+
+    # Start of CLI
+
     print("-" * 40)
     print("Welcome to Slice and Dice Thai Food!")
     print("-" * 40)
     customer_name = input("Please enter your name: ")
     customer_phone_number = input("Please enter your phone number: ")
-    existing_customer = session.query(Customer).filter_by(name=customer_name, phone_number=customer_phone_number).first()
+    existing_customer = session.query(Customer).filter_by(name=customer_name, phone_number=customer_phone_number).first() #Checks if this customer is already in the customers table
 
     if existing_customer:
         print(f"Welcome back {existing_customer.name}!")
         customer = existing_customer
     else:
         print("It looks like you are a new customer. Welcome!")
-        customer = Customer(name=customer_name, phone_number=customer_phone_number)
+        customer = Customer(name=customer_name, phone_number=customer_phone_number) 
+        #Adds a new customer to the customers table
         session.add(customer)
         session.commit()
 
@@ -56,7 +61,8 @@ if __name__ == '__main__':
         def show_menu(items):
             current_category = None
             for item in items:
-                if item.category != current_category:
+                if item.category != current_category: 
+                    #Checks to see if the current item category is different from current_category. If it is not change the current_category to what item.category is and print it. Used as a way to group the items into their categories 
                     current_category = item.category
                     print(f"\n{current_category}")
                     print("-" * 40)
@@ -75,9 +81,9 @@ if __name__ == '__main__':
 
                 try:
                     item_number = int(order_input)
-                    item = session.query(Item).filter_by(id=item_number).first()
-                    if item and item_number < 15:
-                        order_items.append(item)
+                    item = session.query(Item).filter_by(id=item_number).first() #Checks to see if item is in the item table
+                    if item and item_number < 15: 
+                        order_items.append(item) 
                         print(f"{item.name} has been added to your order.")
                     else:
                         print("Not a valid item number. Enter again or enter 0.")
@@ -89,19 +95,22 @@ if __name__ == '__main__':
 
             if order_items == []:
                 print("\nYou ordered 0 items")
-                print(f"\nYour total price is: ${order_price:.2f}")
+                print(f"\nYour total price is: ${order_price:.2f}") #:.2f used to limit float to two decimal places
             else:
                 print("\nYou ordered: ")
                 for item in order_items:
                     print(item.name)
                 print(f"\nYour total is: {order_price:.2f}")
-                order_item_names = ", ".join(item.name for item in order_items) 
+                order_item_names = ", ".join(item.name for item in order_items)
+                #Separates the names of each item in the order_items list 
 
-                new_order = Order(items=order_item_names, total_price=order_price, customer_id=customer.id)
+                new_order = Order(items=order_item_names, total_price=order_price, customer_id=customer.id) 
+                #Adds a new order to the orders table
                 session.add(new_order)
                 session.commit()
 
-                new_history = History(order_items=order_item_names, total=order_price, customer_id=customer.id)
+                new_history = History(order_items=order_item_names, total=order_price, customer_id=customer.id) 
+                #Adds a new history to the histories table
                 session.add(new_history)
                 session.commit()
 
@@ -114,6 +123,7 @@ if __name__ == '__main__':
             print(f"Thank you for your review {customer_name}!")
 
             new_review = Review(rating=rating, comment=comment, customer_id=customer.id)
+            #Adds a new review to the reviews table
             session.add(new_review)
             session.commit()
         
@@ -124,14 +134,9 @@ if __name__ == '__main__':
                     print("-" * 40)
                     print(f"Order ID: {orders.id}")
                     print(f"Items ordered: {orders.order_items} \n")
-                    print(f"Order total:  {orders.total:.2f}")
+                    print(f"Order total:  ${orders.total:.2f}")
             else:
-                print("It seems like you haven't ordered from us yet")  
-
-            # new_restaurant_review = RestaurantR()
-
-        # def see_restaurant_reviews():
-
+                print("It seems like you haven't ordered from us yet.")  
 
         try:
             print("-" * 40)
@@ -139,7 +144,7 @@ if __name__ == '__main__':
             print("1. Place an order")
             print("2. Write a review")
             print("3. View order history")
-            print("4. Quit")
+            print("4. Leave the Slice and Dice")
             print("-" * 40)
             choice = int(input("Please choose from one of the following choices: "))
             
