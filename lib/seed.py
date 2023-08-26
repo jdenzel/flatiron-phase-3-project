@@ -4,7 +4,6 @@ from sqlalchemy.orm import sessionmaker
 import pyfiglet
 
 
-
 if __name__ == '__main__':
     engine = create_engine('sqlite:///database.db')
     Base.metadata.create_all(engine)
@@ -50,7 +49,6 @@ if __name__ == '__main__':
     customer_name = input("Please enter your name: ")
     customer_phone_number = input("Please enter your phone number: ")
     existing_customer = session.query(Customer).filter_by(name=customer_name, phone_number=customer_phone_number).first() #Checks if this customer is already in the customers table
-
     if existing_customer:
         print("-" * 70)
         print(f"Welcome back {existing_customer.name}!")
@@ -131,7 +129,6 @@ if __name__ == '__main__':
             print("-" * 70)
             print(f"\nThank you for your review {customer_name}!")
             
-
             new_review = Review(rating=rating, comment=comment, customer_id=customer.id)
             #Adds a new review to the reviews table
             session.add(new_review)
@@ -142,7 +139,7 @@ if __name__ == '__main__':
                 print("Reviews history:" )
                 for reviews in customer.reviews:
                     print("-" * 70)
-                    print(f"Review IDL {reviews.id}")
+                    print(f"Review ID: {reviews.id}")
                     print(f"Rating: {reviews.rating}")
                     print(f"Comments: {reviews.comment}")
         
@@ -183,6 +180,8 @@ if __name__ == '__main__':
             elif choice == 5:
                 print("-" * 70)
                 print("Thank you for stopping by Slice and Dice Thai Food!")
+                goodbye = pyfiglet.figlet_format("Thank you come again!", font="big")
+                print(goodbye)
                 break
             else:
                 print("Not a valid choice. Enter again.")
