@@ -157,8 +157,10 @@ if __name__ == '__main__':
             print("What would you like to do?\n")
             print("1. Place an order")
             print("2. Write a review")
-            print("3. View order history")
-            print("4. Leave the Slice and Dice")
+            print("3. View review history")
+            print("4. View order history")
+            print("5. Leave the Slice and Dice")
+            
             print("-" * 70)
             choice = int(input("Please choose from one of the following choices: "))
             
@@ -169,8 +171,10 @@ if __name__ == '__main__':
             elif choice == 2:
                 write_review()
             elif choice == 3:
-                view_history()
+                view_reviews_history()
             elif choice == 4:
+                view_history()
+            elif choice == 5:
                 print("-" * 70)
                 print("Thank you for stopping by Slice and Dice Thai Food!")
                 break
