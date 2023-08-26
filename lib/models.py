@@ -41,6 +41,14 @@ class Order(Base):
     def __repr__(self):
         return f"({self.id}, {self.items}, {self.total_price}, {self.customer_id})"
     
+class RestaurantR:
+    __tablename__ = "restaurant_revies"
+    id = Column(Integer(), primary_key=True)
+    reviews = relationship("Review", backref="RestaurantR")
+
+    def __repr__(self):
+        return f"({self.id})"
+
 class Review(Base):
     __tablename__ = "reviews"
 
