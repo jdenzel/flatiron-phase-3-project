@@ -138,7 +138,13 @@ if __name__ == '__main__':
             session.commit()
 
         def view_reviews_history():
-            
+            if customer.reviews:
+                print("Reviews history:" )
+                for reviews in customer.reviews:
+                    print("-" * 70)
+                    print(f"Review IDL {reviews.id}")
+                    print(f"Rating: {reviews.rating}")
+                    print(f"Comments: {reviews.comment}")
         
         def view_history():
             if customer.history:
