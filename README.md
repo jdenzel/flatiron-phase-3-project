@@ -23,7 +23,7 @@ $ python seed.py
 
 ## Video Showcase
 
-[YouTube]()
+[YouTube](https://www.youtube.com/watch?v=BGOTbcZ2ths)
 
 ---
 
