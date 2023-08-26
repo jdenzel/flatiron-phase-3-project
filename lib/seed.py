@@ -3,6 +3,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import pyfiglet
 
+
+
 if __name__ == '__main__':
     engine = create_engine('sqlite:///database.db')
     Base.metadata.create_all(engine)
@@ -38,21 +40,23 @@ if __name__ == '__main__':
             
     menu_items()
 
-
     # Start of CLI
 
-    print("")
-    print("-" * 40)
+    title = pyfiglet.figlet_format("Slice and Dice Thai Food", font="big")
+    print(title)
+    
     print("Welcome to Slice and Dice Thai Food!")
-    print("-" * 40)
+    print("-" * 70)
     customer_name = input("Please enter your name: ")
     customer_phone_number = input("Please enter your phone number: ")
     existing_customer = session.query(Customer).filter_by(name=customer_name, phone_number=customer_phone_number).first() #Checks if this customer is already in the customers table
 
     if existing_customer:
+        print("-" * 70)
         print(f"Welcome back {existing_customer.name}!")
         customer = existing_customer
     else:
+        print("-" * 70)
         print("It looks like you are a new customer. Welcome!")
         customer = Customer(name=customer_name, phone_number=customer_phone_number) 
         #Adds a new customer to the customers table
@@ -67,8 +71,10 @@ if __name__ == '__main__':
                     #Checks to see if the current item category is different from current_category. If it is not change the current_category to what item.category is and print it. Used as a way to group the items into their categories 
                     current_category = item.category
                     print(f"\n{current_category}")
-                    print("-" * 40)
-                print(f"{item.id}: {item.name} - ${item.price} \nDescription: {item.description} \nSpice level: {item.spice_level} \n")
+                    print("-" * 70)
+                    print(f"{item.id}: {item.name} - ${item.price}")
+                    print(f"Description: {item.description}")
+                    print(f"Spice level: {item.spice_level} \n")
         
         def place_order(items):
             show_menu(items)
@@ -93,7 +99,7 @@ if __name__ == '__main__':
                     print("Not a valid item number. Enter again or enter 0.")
 
             for item in order_items:
-                order_price += item.price
+                order_price += item.price #Adds all items and gets the total price and puts it in order_price
 
             if order_items == []:
                 print("\nYou ordered 0 items")
@@ -122,32 +128,38 @@ if __name__ == '__main__':
             rating = int(input("Rate our restaurant from 1 to 5:"))
             comment = input("Tell us what you thought:")
 
-            print(f"Thank you for your review {customer_name}!")
+            print("-" * 70)
+            print(f"\nThank you for your review {customer_name}!")
+            
 
             new_review = Review(rating=rating, comment=comment, customer_id=customer.id)
             #Adds a new review to the reviews table
             session.add(new_review)
             session.commit()
+
+        def view_reviews_history():
+            
         
         def view_history():
             if customer.history:
                 print("Order history:")
                 for orders in customer.history:
-                    print("-" * 40)
+                    print("-" * 70)
                     print(f"Order ID: {orders.id}")
                     print(f"Items ordered: {orders.order_items} \n")
                     print(f"Order total:  ${orders.total:.2f}")
             else:
                 print("It seems like you haven't ordered from us yet.")  
 
+        #Start of Choices | Loops back here after user has finished with a choice
         try:
-            print("-" * 40)
-            print("What would you like to do?")
+            print("-" * 70)
+            print("What would you like to do?\n")
             print("1. Place an order")
             print("2. Write a review")
             print("3. View order history")
             print("4. Leave the Slice and Dice")
-            print("-" * 40)
+            print("-" * 70)
             choice = int(input("Please choose from one of the following choices: "))
             
             if choice == 1:
@@ -159,12 +171,12 @@ if __name__ == '__main__':
             elif choice == 3:
                 view_history()
             elif choice == 4:
-                print("-" * 40)
+                print("-" * 70)
                 print("Thank you for stopping by Slice and Dice Thai Food!")
                 break
             else:
                 print("Not a valid choice. Enter again.")
         except ValueError:
             print("Not a valid choice. Enter again.")
-        print("-" * 40)
+        print("-" * 70)
         print('\n')
