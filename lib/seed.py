@@ -63,16 +63,14 @@ if __name__ == '__main__':
 
     while True:
         def show_menu(items):
-            current_category = None
-            for item in items:
-                if item.category != current_category: 
-                    #Checks to see if the current item category is different from current_category. If it is not change the current_category to what item.category is and print it. Used as a way to group the items into their categories 
-                    current_category = item.category
-                    print(f"\n{current_category}")
-                    print("-" * 70)
-                    print(f"{item.id}: {item.name} - ${item.price}")
-                    print(f"Description: {item.description}")
-                    print(f"Spice level: {item.spice_level} \n")
+                current_category = None
+                for item in items:
+                    if item.category != current_category: 
+                        #Compares if the current item category is different from current_category. If it is print and change current_category
+                        current_category = item.category
+                        print(f"\n{current_category}")
+                        print("-" * 70)
+                    print(f"{item.id}: {item.name} - ${item.price} \n{item.description} \nSpice level: {item.spice_level}\n")
         
         def place_order(items):
             show_menu(items)
@@ -157,7 +155,6 @@ if __name__ == '__main__':
         #Start of Choices | Loops back here after user has finished with a choice
         try:
             print("-" * 70)
-            print("What would you like to do?\n")
             print("1. Place an order")
             print("2. Write a review")
             print("3. View review history")
@@ -165,7 +162,7 @@ if __name__ == '__main__':
             print("5. Leave the Slice and Dice")
             
             print("-" * 70)
-            choice = int(input("Please choose from one of the following choices: "))
+            choice = int(input("Please select from one of the following choices: "))
             
             if choice == 1:
                 print("Of course! Here is our menu: \n")
