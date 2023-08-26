@@ -11,6 +11,10 @@ if __name__ == '__main__':
     session = Session()
 
     session.query(Item).delete()
+    session.query(Customer).delete()
+    session.query(Order).delete()
+    session.query(Review).delete()
+    session.query(History).delete()
     session.commit()
 
     def menu_items(): 
