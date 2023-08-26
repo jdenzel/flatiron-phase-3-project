@@ -10,7 +10,7 @@ class Item(Base):
     id = Column(Integer(), primary_key=True)
     name = Column(String())
     category = Column(String())
-    ingredients = Column(String())
+    description = Column(String())
     spice_level = Column(Integer())
     price = Column(Float())
 
