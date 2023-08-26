@@ -60,7 +60,7 @@ if __name__ == '__main__':
                     current_category = item.category
                     print(f"\n{current_category}")
                     print("-" * 40)
-                print(f"{item.id}: {item.name} - {item.price} \nDescription: {item.description} \nSpice level: {item.spice_level} \n")
+                print(f"{item.id}: {item.name} - ${item.price} \nDescription: {item.description} \nSpice level: {item.spice_level} \n")
         
         def place_order(items):
             show_menu(items)
@@ -76,9 +76,11 @@ if __name__ == '__main__':
                 try:
                     item_number = int(order_input)
                     item = session.query(Item).filter_by(id=item_number).first()
-                    if item:
+                    if item and item_number < 15:
                         order_items.append(item)
                         print(f"{item.name} has been added to your order.")
+                    else:
+                        print("Not a valid item number. Enter again or enter 0.")
                 except ValueError:
                     print("Not a valid item number. Enter again or enter 0.")
 
@@ -87,12 +89,12 @@ if __name__ == '__main__':
 
             if order_items == []:
                 print("\nYou ordered 0 items")
-                print(f"\nYour total price is: {order_price}")
+                print(f"\nYour total price is: ${order_price:.2f}")
             else:
                 print("\nYou ordered: ")
                 for item in order_items:
                     print(item.name)
-                print(f"\nYour total price is: {order_price}")
+                print(f"\nYour total is: {order_price:.2f}")
                 order_item_names = ", ".join(item.name for item in order_items) 
 
                 new_order = Order(items=order_item_names, total_price=order_price, customer_id=customer.id)
@@ -119,9 +121,10 @@ if __name__ == '__main__':
             if customer.history:
                 print("Order history:")
                 for orders in customer.history:
+                    print("-" * 40)
                     print(f"Order ID: {orders.id}")
-                    print(f"Items ordered: {orders.order_items}")
-                    print(f"Order total:  {orders.total}")
+                    print(f"Items ordered: {orders.order_items} \n")
+                    print(f"Order total:  {orders.total:.2f}")
             else:
                 print("It seems like you haven't ordered from us yet")  
 
@@ -136,11 +139,12 @@ if __name__ == '__main__':
             print("1. Place an order")
             print("2. Write a review")
             print("3. View order history")
-            print("4. Quit") 
+            print("4. Quit")
             print("-" * 40)
             choice = int(input("Please choose from one of the following choices: "))
             
             if choice == 1:
+                print("Of course! Here is our menu: \n")
                 items = session.query(Item).all()
                 place_order(items)
             elif choice == 2:
@@ -148,8 +152,11 @@ if __name__ == '__main__':
             elif choice == 3:
                 view_history()
             elif choice == 4:
+                print("-" * 40)
                 print("Thank you for stopping by Slice and Dice Thai Food!")
                 break
+            else:
+                print("Not a valid choice. Enter again.")
         except ValueError:
             print("Not a valid choice. Enter again.")
         print("-" * 40)

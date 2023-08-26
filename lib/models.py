@@ -71,16 +71,3 @@ class History(Base):
 
     def __repr__(self):
         return f"{self.id}, {self.order_items}, {self.total}, {self.customer_id}"
-
-
-    
-    
-
-
-
-    
-
-
-
-
-        
