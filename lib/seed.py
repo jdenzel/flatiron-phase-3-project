@@ -1,6 +1,7 @@
 from models import Item, Order, Customer, Review, History, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import pyfiglet
 
 if __name__ == '__main__':
     engine = create_engine('sqlite:///database.db')
@@ -40,6 +41,7 @@ if __name__ == '__main__':
 
     # Start of CLI
 
+    print("")
     print("-" * 40)
     print("Welcome to Slice and Dice Thai Food!")
     print("-" * 40)
