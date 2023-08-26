@@ -60,7 +60,7 @@ if __name__ == '__main__':
                     current_category = item.category
                     print(f"\n{current_category}")
                     print("-" * 40)
-                print(f"{item.id}: {item.name} - {item.price} \nIngredients: {item.ingredients} \nSpice level: {item.spice_level} \n")
+                print(f"{item.id}: {item.name} - {item.price} \nDescription: {item.description} \nSpice level: {item.spice_level} \n")
         
         def place_order(items):
             show_menu(items)
@@ -85,24 +85,23 @@ if __name__ == '__main__':
             for item in order_items:
                 order_price += item.price
 
-            if order_items is None:
-                print("You ordered 0 items")
+            if order_items == []:
+                print("\nYou ordered 0 items")
+                print(f"\nYour total price is: {order_price}")
             else:
                 print("\nYou ordered: ")
                 for item in order_items:
                     print(item.name)
+                print(f"\nYour total price is: {order_price}")
+                order_item_names = ", ".join(item.name for item in order_items) 
 
-            print(f"\nYour total price is: {order_price}")
+                new_order = Order(items=order_item_names, total_price=order_price, customer_id=customer.id)
+                session.add(new_order)
+                session.commit()
 
-            order_item_names = ", ".join(item.name for item in order_items) 
-
-            new_order = Order(items=order_item_names, total_price=order_price, customer_id=customer.id)
-            session.add(new_order)
-            session.commit()
-
-            new_history = History(order_items=order_item_names, total=order_price, customer_id=customer.id)
-            session.add(new_history)
-            session.commit()
+                new_history = History(order_items=order_item_names, total=order_price, customer_id=customer.id)
+                session.add(new_history)
+                session.commit()
 
         def write_review():
             print("Give us a Review!")
@@ -155,11 +154,3 @@ if __name__ == '__main__':
             print("Not a valid choice. Enter again.")
         print("-" * 40)
         print('\n')
-
-        
-
-    
-        
-
-            
-

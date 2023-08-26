@@ -15,7 +15,7 @@ class Item(Base):
     price = Column(Float())
 
     def __repr__(self):
-        return f"({self.id}, {self.name}, {self.category}, {self.ingredients}, {self.price})"
+        return f"({self.id}, {self.name}, {self.category}, {self.description}, {self.price})"
     
 class Customer(Base):
     __tablename__ = "customers"
