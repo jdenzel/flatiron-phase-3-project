@@ -108,7 +108,7 @@ if __name__ == '__main__':
                 print("\nYou ordered: ")
                 for item in order_items:
                     print(item.name)
-                print(f"\nYour total is: {order_price:.2f}")
+                print(f"\nYour total is: ${order_price:.2f}")
                 order_item_names = ", ".join(item.name for item in order_items)
                 #Separates the names of each item in the order_items list 
 
