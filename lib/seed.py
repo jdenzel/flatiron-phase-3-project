@@ -143,7 +143,7 @@ if __name__ == '__main__':
                     print(f"Rating: {reviews.rating}")
                     print(f"Comments: {reviews.comment}")
         
-        def view_history():
+        def view_order_history():
             if customer.history:
                 print("Order history:")
                 for orders in customer.history:
@@ -176,7 +176,7 @@ if __name__ == '__main__':
             elif choice == 3:
                 view_reviews_history()
             elif choice == 4:
-                view_history()
+                view_order_history()
             elif choice == 5:
                 print("-" * 70)
                 print("Thank you for stopping by Slice and Dice Thai Food!")
