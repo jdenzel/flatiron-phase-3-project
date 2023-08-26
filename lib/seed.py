@@ -36,7 +36,9 @@ if __name__ == '__main__':
             
     menu_items()
 
+    print("-" * 40)
     print("Welcome to Slice and Dice Thai Food!")
+    print("-" * 40)
     customer_name = input("Please enter your name: ")
     customer_phone_number = input("Please enter your phone number: ")
     existing_customer = session.query(Customer).filter_by(name=customer_name, phone_number=customer_phone_number).first()
@@ -53,11 +55,10 @@ if __name__ == '__main__':
     while True:
         def show_menu(items):
             for item in items:
-                print(f"{item.id}: {item.name} - {item.price}")
+                print(f"{item.id}: {item.name} - {item.price} \n Ingredients: {item.ingredients}, Spice level: {item.spice_level}")
         
         def place_order(items):
             show_menu(items)
-
             order_items = []
             order_price = 0
 
@@ -114,18 +115,19 @@ if __name__ == '__main__':
                     print(f"Order ID: {orders.id}")
                     print(f"Items ordered: {orders.order_items}")
                     print(f"Order total:  {orders.total}")
-                else:
-                    print("It seems like you haven't ordered from us yet")
-            
+            else:
+                print("It seems like you haven't ordered from us yet")  
+
+        
 
         try:
-            print("Menu")
-            print("-" * 30)
+            print("-" * 40)
             print("What would you like to do?")
             print("1. Place an order")
             print("2. Write a review")
             print("3. View order history")
             print("4. Quit") 
+            print("-" * 40)
             choice = int(input("Please choose from one of the following choices: "))
             
             if choice == 1:
@@ -140,6 +142,8 @@ if __name__ == '__main__':
                 break
         except ValueError:
             print("Not a valid choice. Enter again.")
+        print("-" * 40)
+        print('\n')
 
         
 
