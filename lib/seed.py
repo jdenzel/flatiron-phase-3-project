@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     def menu_items():
         menu_items_list = [
-            {"name": "Spring Rolls", "category": "Appetizer", "ingredients": "Rice paper, shrimp, lettuce, cucumber, vermicelli, mint leaves", "spice_level": 3, "price": 5.95},
+            {"name": "Spring Rolls", "category": "Appetizer", "ingredients": "Rice paper, vegetables,", "spice_level": 3, "price": 5.95},
             {"name": "Chicken Satay", "category": "Appetizer", "ingredients": "Chicken, peanut sauce", "spice_level": 2, "price": 8.95},
             {"name": "Green Papaya Salad", "category": "Appetizer", "ingredients": "Green papaya, carrots, peanuts, fish sauce, lime juice", "spice_level": 4, "price": 8.95},
             {"name": "Spicy Beef Salad", "category": "Appetizer", "ingredients": "Beef, cucumber, tomatoes, onions, fish sauce, lime juice", "spice_level": 4, "price": 8.95},
@@ -21,10 +21,10 @@ if __name__ == '__main__':
             {"name": "Pad See Ew", "category": "Entree", "ingredients": "Rice noodles, chicken, egg, broccoli, carrots", "spice_level": 2,"price": 14.95},
             {"name": "Drunken Noodles", "category": "Entree", "ingredients": "Rice noodles, chicken, egg, bell peppers, onions, basil", "spice_level": 2, "price": 14.95},
             {"name": "Pad Kaprow", "category": "Entree", "ingredients": "Chicken, bell peppers, onions, basil", "spice_level": 2, "price": 14.95},
-            {"name": "Red Curry", "category": "Entree", "ingredients": "Chicken, bamboo shoots, bell peppers, basil", "spice_level": 3, "price": 14.95},
-            {"name": "Green Curry", "category": "Entree", "ingredients": "Chicken, bamboo shoots, bell peppers, basil", "spice_level": 3, "price": 14.95},
-            {"name": "Mango with Sticky Rice", "category": "Dessert", "ingredients": "Mango, sticky rice, coconut milk", "spice_level": 1, "price": 5.95},
-            {"name": "Fried Ice Cream", "category": "Dessert", "ingredients": "Ice cream, corn flakes, coconut flakes", "spice_level": 1, "price": 5.95},
+            {"name": "Red Curry", "category": "Entree", "ingredients": "Red curry paste, chicken, bamboo shoots, bell peppers, basil", "spice_level": 3, "price": 14.95},
+            {"name": "Green Curry", "category": "Entree", "ingredients": "Green curry paste, chicken, bamboo shoots, bell peppers, basil", "spice_level": 3, "price": 14.95},
+            {"name": "Mango with Sticky Rice", "category": "Dessert", "ingredients": "Mango, sticky rice, coconut milk, roasted sesame seeds", "spice_level": 1, "price": 5.95},
+            {"name": "Fried Ice Cream", "category": "Dessert", "ingredients": "Vanille ice cream, corn flakes, coconut flakes", "spice_level": 1, "price": 5.95},
             {"name": "Thai Iced Tea", "category": "Drinks", "ingredients": "Thai tea, milk, sugar", "spice_level": 1, "price": 3.95},
             {"name": "Thai Iced Coffee", "category": "Drinks", "ingredients": "Coffee, milk, sugar", "spice_level": 1, "price": 3.95}
         ]
@@ -54,8 +54,13 @@ if __name__ == '__main__':
 
     while True:
         def show_menu(items):
+            current_category = None
             for item in items:
-                print(f"{item.id}: {item.name} - {item.price} \n Ingredients: {item.ingredients}, Spice level: {item.spice_level}")
+                if item.category != current_category:
+                    current_category = item.category
+                    print(f"\n{current_category}")
+                    print("-" * 40)
+                print(f"{item.id}: {item.name} - {item.price} \nIngredients: {item.ingredients} \nSpice level: {item.spice_level} \n")
         
         def place_order(items):
             show_menu(items)
@@ -64,7 +69,7 @@ if __name__ == '__main__':
 
             while True:
                 
-                order_input = input("Enter the item number: . Enter 0 to finish your order: ")
+                order_input = input("Enter the item number or enter 0 to finish your order: ")
                 if order_input == "0":
                     break
 
@@ -73,18 +78,21 @@ if __name__ == '__main__':
                     item = session.query(Item).filter_by(id=item_number).first()
                     if item:
                         order_items.append(item)
-                        print(f"{item} has been added to your order.")
+                        print(f"{item.name} has been added to your order.")
                 except ValueError:
                     print("Not a valid item number. Enter again or enter 0.")
 
             for item in order_items:
                 order_price += item.price
 
-            print("Your ordered:")
-            for item in order_items:
-                print(item.name)
-            print("Your total price is:")
-            print(order_price)
+            if order_items is None:
+                print("You ordered 0 items")
+            else:
+                print("\nYou ordered: ")
+                for item in order_items:
+                    print(item.name)
+
+            print(f"\nYour total price is: {order_price}")
 
             order_item_names = ", ".join(item.name for item in order_items) 
 
@@ -118,7 +126,10 @@ if __name__ == '__main__':
             else:
                 print("It seems like you haven't ordered from us yet")  
 
-        
+            # new_restaurant_review = RestaurantR()
+
+        # def see_restaurant_reviews():
+
 
         try:
             print("-" * 40)
